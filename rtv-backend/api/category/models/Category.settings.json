@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "category",
+  "info": {
+    "name": "category",
+    "description": "Video categories"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "videos": {
+      "collection": "video",
+      "dominant": true,
+      "via": "categories"
+    }
+  }
+}

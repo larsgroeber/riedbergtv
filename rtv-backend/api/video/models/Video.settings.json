@@ -1,0 +1,55 @@
+{
+  "connection": "default",
+  "collectionName": "video",
+  "info": {
+    "name": "video",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "type": "string"
+    },
+    "video": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "thumbnail": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "creator": {
+      "model": "user",
+      "plugin": "users-permissions"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "videos"
+    },
+    "shortDescription": {
+      "default": "",
+      "type": "string"
+    },
+    "videoSmall": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "watchCount": {
+      "default": 0,
+      "type": "integer"
+    }
+  }
+}

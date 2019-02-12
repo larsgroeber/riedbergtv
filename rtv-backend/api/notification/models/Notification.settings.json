@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "notification",
+    "description": "A notification which will be displayed to a user."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "default": "",
+      "type": "date"
+    },
+    "endDate": {
+      "default": "",
+      "type": "date"
+    },
+    "type": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "toast",
+        " alert"
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "rtv-backend",
+    "module": "commonjs",
+    "outDir": "build-server"
+  },
+  "exclude": ["jest.config.js", "src", "node_modules", "build", "build-server"]
+}

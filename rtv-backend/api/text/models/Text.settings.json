@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "text",
+  "info": {
+    "name": "text",
+    "description": "Text snippets used on website (do NOT delete any or change their names)."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "default": "",
+      "type": "text",
+      "required": true
+    }
+  }
+}

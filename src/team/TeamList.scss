@@ -1,0 +1,16 @@
+.team-list {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+
+  .team-member {
+    margin: 10px;
+  }
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(2, 50%);
+
+    .team-member {
+      margin: 5px;
+    }
+  }
+}

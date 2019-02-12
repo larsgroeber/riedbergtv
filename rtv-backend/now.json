@@ -1,0 +1,12 @@
+{
+  "builds": [{ "src": "server.js", "use": "@now/node" }],
+  "version": 2,
+  "env": {
+    "DATABASE_NAME": "rtv-backend-prod",
+    "DATABASE_SSL": "true",
+    "NODE_ENV": "production",
+    "DATABASE_HOST": "@database_host",
+    "DATABASE_USERNAME": "@database_username",
+    "DATABASE_PASSWORD": "@database_password"
+  }
+}
