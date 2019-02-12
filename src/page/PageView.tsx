@@ -21,6 +21,7 @@ export class PageView extends React.Component<Props> {
   state: State = { loading: true };
 
   componentDidMount() {
+    window.scrollTo({ top: 0 });
     this.fetchData();
   }
 
@@ -30,6 +31,7 @@ export class PageView extends React.Component<Props> {
       this.state.page &&
       this.state.page.slug !== this.props.match.params.slug
     ) {
+      window.scrollTo({ top: 0 });
       this.setState({ loading: true });
       this.fetchData();
     }
@@ -48,7 +50,7 @@ export class PageView extends React.Component<Props> {
         : '';
     return (
       <div>
-        <Navbar />
+        <Navbar notFloating={true} />
         <div
           style={{
             height: '40vh',

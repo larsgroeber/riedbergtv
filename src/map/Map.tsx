@@ -2,11 +2,21 @@ import * as React from 'react';
 import './Map.css';
 
 interface State {
-  dirty: number;
+  showWarning: boolean;
 }
 
 export class Map extends React.Component {
-  state: State = { dirty: 0 };
+  state: State = { showWarning: false };
+
+  componentDidMount() {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      )
+    ) {
+      this.setState({ showWarning: true });
+    }
+  }
 
   render() {
     return (
@@ -21,7 +31,7 @@ export class Map extends React.Component {
             border: 'none',
           }}
         />
-        <div>
+        <div className={this.state.showWarning ? '' : 'd-none'}>
           <h4>
             Leider funktioniert diese Karte aktuell nicht auf Mobilgeräten.
           </h4>

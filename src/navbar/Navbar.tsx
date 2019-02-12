@@ -14,7 +14,8 @@ export class Navbar extends React.Component<Props> {
       <nav
         className={
           'navbar navbar-dark navbar-expand-sm' +
-          (this.props.notFloating ? '' : ' sticky-top')
+          (this.props.notFloating ? '' : ' sticky-top') +
+          (this.props.homePage ? '' : ' center-links')
         }
         style={{
           width: '100%',
@@ -43,11 +44,7 @@ export class Navbar extends React.Component<Props> {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
-            className={
-              'navbar-nav ' + (this.props.homePage ? 'm-auto' : 'mr-auto')
-            }
-          >
+          <ul className="navbar-nav">
             <li className="nav-item">
               <a
                 className="nav-link"

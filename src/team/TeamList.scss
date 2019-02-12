@@ -1,6 +1,7 @@
 .team-list {
   display: grid;
   grid-template-columns: repeat(4, 25%);
+  transition: height 300ms;
 
   .team-member {
     margin: 10px;
