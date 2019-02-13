@@ -18,7 +18,31 @@ export class TeamList extends React.Component {
   }
 
   componentDidMount() {
-    API.getTeamMembers().then(members => this.setState({ members }));
+    API.getTeamMembers()
+      .then(this.sortMembers)
+      .then(members => this.setState({ members }));
+  }
+
+  sortMembers(members: TeamMember[]) {
+    return new Promise((res, rej) => {
+      const m = members
+        .filter(m => !!m.startedAt)
+        .map(m => ({
+          ...m,
+          startedAt: new Date(m.startedAt),
+          leftAt: m.leftAt ? new Date(m.leftAt) : null,
+        }));
+      const result = [
+        ...m
+          .filter(m => !m.leftAt && m.active)
+          .sort((m1, m2) => m1.startedAt.getTime() - m2.startedAt.getTime()),
+
+        ...m
+          .filter(m => m.leftAt || !m.active)
+          .sort((m1, m2) => m1.leftAt!.getTime() - m2.leftAt!.getTime()),
+      ];
+      res(result);
+    });
   }
 
   toggleShowAll() {
@@ -45,6 +69,7 @@ export class TeamList extends React.Component {
             </div>
           ))}
         </div>
+
         <button
           className={
             'btn btn-outline-dark mt-3' + (this.showAll ? ' d-none' : '')

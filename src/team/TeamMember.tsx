@@ -27,17 +27,28 @@ export class TeamMemberComp extends React.Component<Props> {
         }}
       />
     );
+    const emailOrLeft = !!this.props.member.leftAt ? (
+      <div>
+        <i className="fas fa-stop-circle" />{' '}
+        {moment(this.props.member.leftAt).format('MM.YYYY')}
+      </div>
+    ) : (
+      <div className="overflow-hidden text-truncate">
+        <i className="fas fa-at" />{' '}
+        <a href={'mailto:' + this.props.member.email}>
+          {this.props.member.email}
+        </a>
+      </div>
+    );
     const description = (
       <div className="text-left pl-1 pl-sm-3 overflow-hidden">
         <div>
           <i className="fas fa-play-circle" />{' '}
           {moment(this.props.member.startedAt).format('MM.YYYY')}
         </div>
+        {emailOrLeft}
         <div className="overflow-hidden text-truncate">
-          <i className="fas fa-at" />{' '}
-          <a href={'mailto:' + this.props.member.email}>
-            {this.props.member.email}
-          </a>
+          <i className="fas fa-briefcase" /> {this.props.member.workAreas}
         </div>
       </div>
     );

@@ -46,6 +46,7 @@ export class VideoView extends React.Component<Props, State> {
           }}
           src={`${Config.apiBase}${video.video.url}`}
           controls
+          autoPlay
         />
       ) : (
         <strong style={{ color: 'white' }}>
