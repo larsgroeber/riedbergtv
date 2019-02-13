@@ -28,8 +28,25 @@ export class VideoList extends React.Component<{}, State> {
   private searchValue: string;
 
   componentDidMount() {
-    API.getCategories().then(categories =>
-      this.setState({ categories, loadingCategories: false }),
+    API.getCategories()
+      .then(this.sortCategories)
+      .then(categories =>
+        this.setState({ categories, loadingCategories: false }),
+      );
+  }
+
+  private sortCategories(categories: Category[]) {
+    return Promise.resolve(
+      categories
+        .sort((c1, c2) => (c1.name > c2.name ? 1 : -1))
+        .map(c => ({
+          ...c,
+          videos: c.videos.sort(
+            (v1, v2) =>
+              new Date(v2.createdAt).getTime() -
+              new Date(v1.createdAt).getTime(),
+          ),
+        })),
     );
   }
 
