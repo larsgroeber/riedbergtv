@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import App from './App';
 import { PageView } from './page/PageView';
 import { VideoView } from './videos/VideoView';
+import { Cookie } from './cookie/Cookie';
 
 export class Router extends React.Component {
   public render() {
@@ -14,6 +15,7 @@ export class Router extends React.Component {
           <Route path="/pages/:slug" component={PageView} />
           <Route path="/videos/:slug" component={VideoView} />
           <ToastContainer />
+          <Cookie />
         </div>
       </BrowserRouter>
     );
