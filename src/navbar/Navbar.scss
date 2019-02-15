@@ -1,9 +1,30 @@
-a.active {
-  text-decoration: underline;
-}
+@import '../theme.scss';
 
 .navbar-nav {
   margin: auto;
+}
+
+.nav-link {
+  span {
+    position: relative;
+  }
+  span::after {
+    content: '';
+    border-bottom: solid 2px map-get($map: $theme-colors, $key: primary);
+    width: 0;
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 300ms;
+  }
+
+  &.active,
+  &:hover {
+    span::after {
+      width: 100%;
+    }
+  }
 }
 
 .center-links {

@@ -51,7 +51,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#videos'}
                 style={{ color: Config.theme.primary }}
               >
-                Videos
+                <span>Videos</span>
               </a>
             </li>
             <li className="nav-item">
@@ -60,7 +60,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#ueber'}
                 style={{ color: Config.theme.primary }}
               >
-                Über uns
+                <span>Über uns</span>
               </a>
             </li>
             <li className="nav-item">
@@ -69,7 +69,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#map'}
                 style={{ color: Config.theme.primary }}
               >
-                Interaktive Karte
+                <span>Interaktive Karte</span>
               </a>
             </li>
             <li className="nav-item">
@@ -78,7 +78,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#team'}
                 style={{ color: Config.theme.primary }}
               >
-                Team
+                <span>Team</span>
               </a>
             </li>
             <li className="nav-item">
@@ -87,7 +87,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#faq'}
                 style={{ color: Config.theme.primary }}
               >
-                FAQ
+                <span>FAQ</span>
               </a>
             </li>
             <li className="nav-item">
@@ -96,7 +96,7 @@ export class Navbar extends React.Component<Props> {
                 href={(this.props.homePage ? '' : Config.baseUrl) + '#contact'}
                 style={{ color: Config.theme.primary }}
               >
-                Kontakt
+                <span>Kontakt</span>
               </a>
             </li>
           </ul>
