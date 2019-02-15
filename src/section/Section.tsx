@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Config } from 'src/config';
 import ReactMarkdown from 'react-markdown';
+import './Section.css';
 
 interface Props {
   dark?: boolean;
@@ -15,10 +16,9 @@ export class Section extends React.Component<Props> {
   public render() {
     return (
       <div
-        className={`text-center ${this.props.className}`}
+        className={`text-center section-wrapper ${this.props.className}`}
         style={{
           ...(this.props.dark ? Config.theme.dark : Config.theme.light),
-          padding: '2.5rem 0.5rem',
         }}
       >
         <h2
@@ -35,12 +35,7 @@ export class Section extends React.Component<Props> {
             margin: 'auto',
           }}
         >
-          <div
-            className={this.props.contentClass}
-            style={{
-              padding: '0 1rem',
-            }}
-          >
+          <div className={`section-content ${this.props.contentClass}`}>
             {this.props.children}
             <ReactMarkdown source={this.props.text} />
           </div>

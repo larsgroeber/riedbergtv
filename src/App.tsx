@@ -89,8 +89,9 @@ class App extends React.Component {
                 }}
                 className="text-center"
               >
-                <h1>RiedbergTV</h1>
-                <p>naturwissenschaftliche Videos von Studenten für Studenten</p>
+                <h1>{Config.appName}</h1>
+                <p>Behind the Sc(i)en(c)e</p>
+                <p>Naturwissenschaftliche Videos von Studenten für Studenten</p>
                 <a href="#videos">
                   <button className="btn btn-primary d-none d-sm-inline-block">
                     Zu den Videos

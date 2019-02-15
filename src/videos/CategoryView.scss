@@ -1,3 +1,16 @@
 .category-view-container {
-  /* display: flex; */
+  @media screen and (max-width: 800px) {
+    padding: 0 25px !important;
+    .category-arrow {
+      width: 20px !important;
+
+      &.left {
+        left: -25px !important;
+      }
+
+      &.right {
+        right: -25px !important;
+      }
+    }
+  }
 }

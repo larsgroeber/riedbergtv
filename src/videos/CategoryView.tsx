@@ -29,6 +29,7 @@ const CustomRightArrow = (props: any) => {
         ...customArrowStyle,
         right: '-40px',
       }}
+      className="category-arrow right"
       onClick={onClick}
     >
       <i
@@ -55,6 +56,7 @@ const CustomLeftArrow = (props: any) => {
         ...customArrowStyle,
         left: '-40px',
       }}
+      className="category-arrow left"
       onClick={onClick}
     >
       <i
