@@ -11,6 +11,7 @@ import { FAQ } from './faq/FAQ';
 import { Contact } from './contact/Contact';
 import { Config } from './config';
 import { Map } from './map/Map';
+import { Link } from 'react-router-dom';
 
 const sections = [
   {
@@ -97,9 +98,11 @@ class App extends React.Component {
                     Zu den Videos
                   </button>
                 </a>
-                <button className="btn btn-outline-primary ml-2">
-                  Mach mit
-                </button>
+                <Link to="/pages/jobs">
+                  <button className="btn btn-outline-primary ml-2">
+                    Mach mit
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

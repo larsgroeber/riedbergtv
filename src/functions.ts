@@ -12,3 +12,8 @@ export function debounce(func: any, wait: number, immediate: boolean = false) {
     if (callNow) func();
   };
 }
+
+export function isHTML(str: string) {
+  var doc = new DOMParser().parseFromString(str, 'text/html');
+  return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+}

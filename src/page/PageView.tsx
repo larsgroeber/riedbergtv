@@ -7,6 +7,7 @@ import { Config } from 'src/config';
 import { Loader } from 'src/loader/Loader';
 import { Section } from 'src/section/Section';
 import { Footer } from 'src/footer/Footer';
+import { isHTML } from 'src/functions';
 
 interface Props {
   match: { params: { slug: string } };
@@ -44,10 +45,18 @@ export class PageView extends React.Component<Props> {
   }
 
   render() {
+    console.log(this.state.page);
     const backgroundImage =
       this.state.page && this.state.page.header
         ? `url(${Config.apiBase}${this.state.page.header.url})`
         : '';
+    const pageContent = this.state.page ? this.state.page.content : '';
+
+    const content = isHTML(pageContent) ? (
+      <div dangerouslySetInnerHTML={{ __html: pageContent }} />
+    ) : (
+      <ReactMarkdown source={pageContent} />
+    );
     return (
       <div>
         <Navbar notFloating={true} />
@@ -81,9 +90,7 @@ export class PageView extends React.Component<Props> {
               padding: '2rem 1rem',
             }}
           >
-            <ReactMarkdown
-              source={this.state.page ? this.state.page.content : ''}
-            />
+            {content}
           </div>
         </Loader>
         <Section>
