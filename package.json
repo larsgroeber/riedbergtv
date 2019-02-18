@@ -19,6 +19,7 @@
     "react-slick": "^0.23.1",
     "react-toastify": "^4.4.0",
     "react-video-play": "^2.0.3",
+    "rxjs": "^6.4.0",
     "slick-carousel": "^1.8.1",
     "video-react": "^0.13.0"
   },

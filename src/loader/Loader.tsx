@@ -8,9 +8,10 @@ interface Props {
 
 export class Loader extends React.Component<Props> {
   render() {
+    const c = this.props.loading ? '' : this.props.children;
     return (
       <div className={this.props.loading ? 'loader-loading' : ''}>
-        <div>{this.props.children}</div>
+        <div>{c}</div>
       </div>
     );
   }

@@ -59,6 +59,10 @@ export class API {
     return this.buildFindRequest('videos', query);
   }
 
+  static findCategory(query?: any): Promise<Category[]> {
+    return this.buildFindRequest('categories', query);
+  }
+
   static getTexts(): Promise<Text[]> {
     return this.buildGetRequest('texts');
   }

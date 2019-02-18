@@ -9,33 +9,57 @@ import { Navbar } from 'src/navbar/Navbar';
 import * as moment from 'moment';
 import 'moment/locale/de';
 import { Footer } from 'src/footer/Footer';
+import { Category } from 'src/models/category';
+import { from, of } from 'rxjs';
+import { take, switchMap, filter, map, tap } from 'rxjs/operators';
+import { CategoryView } from './CategoryView';
+import { CategoryList } from './CategoryList';
 
 interface Props extends RouterProps {}
 
 interface State {
   video?: Video;
-  loading: boolean;
+  categories?: Category[];
+  loadingVideo: boolean;
+  loadingCategories: boolean;
 }
 
 export class VideoView extends React.Component<Props, State> {
-  state: State = { loading: true };
+  state: State = { loadingVideo: true, loadingCategories: true };
 
   componentDidMount() {
-    API.findVideos({
-      title: this.props.match.params.slug,
-    }).then(videos => {
-      this.setState({ video: videos[0], loading: false });
-    });
+    from(
+      API.findVideos({
+        title: this.props.match.params.slug,
+      }),
+    )
+      .pipe(
+        take(1),
+        switchMap(videos => {
+          const video = videos[0];
+          this.setState({ video, loadingVideo: false });
+          if (video) {
+            return from(
+              API.findCategory({
+                name: video.categories.map(c => c.name)[0],
+              }),
+            );
+          }
+          return of(null);
+        }),
+        filter(v => !!v),
+        tap((categories: Category[]) =>
+          this.setState({ categories, loadingCategories: false }),
+        ),
+      )
+      .subscribe();
   }
 
   render() {
-    if (!this.state.video) {
-      return <Loader loading={this.state.loading} />;
-    }
-
     moment.locale('de');
 
-    const video = this.state.video;
+    const { categories } = this.state;
+    const video = this.state.video || ({} as any);
     const videoView =
       video && video.video ? (
         <video
@@ -46,15 +70,22 @@ export class VideoView extends React.Component<Props, State> {
           }}
           src={`${Config.apiBase}${video.video.url}`}
           controls
-          autoPlay
         />
       ) : (
         <strong style={{ color: 'white' }}>
           There is no video file on this video!
         </strong>
       );
+
+    const categoriesView = categories ? (
+      <div>
+        <CategoryList categories={categories} />
+      </div>
+    ) : (
+      ''
+    );
     return (
-      <Loader loading={this.state.loading}>
+      <Loader loading={this.state.loadingVideo}>
         <Navbar notFloating={true} />
         <div
           style={{
@@ -78,6 +109,7 @@ export class VideoView extends React.Component<Props, State> {
             </small>
           </div>
         </Section>
+        <Section dark={true}>{categoriesView}</Section>
         <Section>
           <Footer />
         </Section>
