@@ -29,12 +29,7 @@ export class Section extends React.Component<Props> {
         >
           {this.props.title}
         </h2>
-        <div
-          style={{
-            maxWidth: '1000px',
-            margin: 'auto',
-          }}
-        >
+        <div>
           <div className={`section-content ${this.props.contentClass}`}>
             {this.props.children}
             <ReactMarkdown source={this.props.text} />

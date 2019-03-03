@@ -1,3 +1,4 @@
+///<reference path="../typings/video-react.d.ts" />
 import * as React from 'react';
 import { Video } from 'src/models/video';
 import { Loader } from '../loader/Loader';
@@ -11,9 +12,18 @@ import 'moment/locale/de';
 import { Footer } from 'src/footer/Footer';
 import { Category } from 'src/models/category';
 import { from, of } from 'rxjs';
-import { take, switchMap, filter, map, tap } from 'rxjs/operators';
-import { CategoryView } from './CategoryView';
+import {
+  take,
+  switchMap,
+  filter,
+  map,
+  tap,
+  finalize,
+  catchError,
+} from 'rxjs/operators';
 import { CategoryList } from './CategoryList';
+import { toast } from 'react-toastify';
+import { Player } from 'video-react';
 
 interface Props extends RouterProps {}
 
@@ -51,6 +61,19 @@ export class VideoView extends React.Component<Props, State> {
         tap((categories: Category[]) =>
           this.setState({ categories, loadingCategories: false }),
         ),
+
+        catchError(() => {
+          toast.error(
+            'There was an error when loading the video or the categories.',
+            {
+              autoClose: false,
+            },
+          );
+          return of();
+        }),
+        finalize(() =>
+          this.setState({ loadingCategories: false, loadingVideo: false }),
+        ),
       )
       .subscribe();
   }
@@ -62,15 +85,15 @@ export class VideoView extends React.Component<Props, State> {
     const video = this.state.video || ({} as any);
     const videoView =
       video && video.video ? (
-        <video
+        <div
           style={{
             width: '100%',
             maxWidth: '1300px',
             margin: 'auto',
           }}
-          src={`${Config.apiBase}${video.video.url}`}
-          controls
-        />
+        >
+          <Player src={`${Config.apiBase}${video.video.url}`} controls />
+        </div>
       ) : (
         <strong style={{ color: 'white' }}>
           There is no video file on this video!

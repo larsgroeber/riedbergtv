@@ -1,16 +1,19 @@
+const primary = '#66cccc';
+const secondary = '#111';
+
 export const Config = {
   appName: 'RiedbergTV',
   theme: {
     light: {
-      backgroundColor: '#66cccc',
-      color: '#111',
+      backgroundColor: primary,
+      color: secondary,
     },
     dark: {
-      backgroundColor: '#111',
-      color: '#66cccc',
+      backgroundColor: secondary,
+      color: primary,
     },
-    primary: '#66cccc',
-    secondary: '#111',
+    primary: primary,
+    secondary: secondary,
   },
   apiBase: 'https://api.riedberg.tv',
   baseUrl: 'https://riedbergtv.netlify.com',

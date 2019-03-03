@@ -14,3 +14,8 @@
     }
   }
 }
+
+.slick-track {
+  // makes sure that less videos than upperlimit are placed left-aligned
+  margin-left: 0 !important;
+}

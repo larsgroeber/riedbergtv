@@ -142,14 +142,14 @@ export class CategoryView extends React.Component<Props> {
   updateSliderSettings(): void {
     const videoCount = this.props.category.videos.length;
 
-    let upperLimit = 3;
+    let upperLimit = 4;
 
     if (this.container.current) {
       const width = this.container.current.offsetWidth;
-      upperLimit = Math.min(Math.ceil(width / 450), 3);
+      upperLimit = Math.min(Math.ceil(width / 450), upperLimit);
     }
 
-    this.sliderSettings.slidesToShow = Math.min(videoCount, upperLimit);
-    this.sliderSettings.slidesToScroll = Math.min(videoCount, upperLimit);
+    this.sliderSettings.slidesToShow = upperLimit;
+    this.sliderSettings.slidesToScroll = upperLimit;
   }
 }

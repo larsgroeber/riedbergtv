@@ -10,7 +10,7 @@ interface State {
 }
 
 export class TeamList extends React.Component {
-  private defaultShow = 4;
+  private defaultShow = 6;
   state: State = { members: [], show: this.defaultShow };
 
   constructor(props: any) {
