@@ -24,6 +24,9 @@ export class API {
       fetch(this.buildURL(route, customBackend), {
         method: 'POST',
         body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }),
       route,
     );

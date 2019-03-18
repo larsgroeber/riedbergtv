@@ -9,8 +9,8 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const port = process.env.PORT || 5001;
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
 
 app.post('/email', (req, res) => {
   const body = req.body;
-  const referer = req.get('Referrer');
   const { subject, name, email, message } = body;
   const html = `
   <p>Hi,</p>
@@ -35,7 +34,7 @@ app.post('/email', (req, res) => {
     const msg = {
       to: process.env.MAIL_TO,
       from: process.env.MAIL_FROM,
-      subject: subject,
+      subject,
       html,
     };
     sgMail
