@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { Config } from 'src/config';
 import { toast } from 'react-toastify';
+import { API } from 'src/services/api';
 
 interface State {
-  subject?: string;
-  name?: string;
-  email?: string;
-  body?: string;
+  subject: string;
+  name: string;
+  email: string;
+  message: string;
 }
 
 export class Contact extends React.Component {
-  public state: State = {};
+  public state: State = {
+    subject: '',
+    name: '',
+    email: '',
+    message: '',
+  };
   render() {
     return (
       <div style={{ maxWidth: '1000px', margin: 'auto' }}>
@@ -60,8 +66,8 @@ export class Contact extends React.Component {
               id="body"
               className="form-control"
               placeholder="Deine Nachricht 😀"
-              value={this.state.body}
-              onChange={evt => this.setState({ body: evt.target.value })}
+              value={this.state.message}
+              onChange={evt => this.setState({ message: evt.target.value })}
             />
           </div>
           <button
@@ -77,22 +83,31 @@ export class Contact extends React.Component {
   }
 
   get allFieldsFilled() {
-    const { subject, name, email, body } = this.state;
+    const { subject, name, email, message: body } = this.state;
     return subject && name && email && body;
   }
 
   send() {
-    const { subject, name, email, body } = this.state;
+    const { subject, name, email, message } = this.state;
     if (!this.allFieldsFilled) {
       toast.info('Bitte fülle alle Felder aus.');
       return;
     }
-    toast.success(`Vielen Dank für deine Nachricht${name ? ', ' + name : ''}.`);
-    this.setState({
-      subject: '',
-      email: '',
-      name: '',
-      body: '',
+    API.sendEmail({
+      subject: `[KontaktForm] ${subject}`,
+      name,
+      email,
+      message,
+    }).then(() => {
+      toast.success(
+        `Vielen Dank für deine Nachricht${name ? ', ' + name : ''}.`,
+      );
+      this.setState({
+        subject: '',
+        email: '',
+        name: '',
+        message: '',
+      });
     });
   }
 }

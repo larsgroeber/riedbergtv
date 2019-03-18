@@ -19,5 +19,6 @@ export const Config = {
   baseUrl: 'https://riedbergtv.netlify.com',
   mapUrl: 'https://riedbergtv-map.netlify.com',
   supportEmail: 'support@riedberg.tv',
+  customBackend: 'http://localhost:5001',
   videoRatio: 1.778,
 };

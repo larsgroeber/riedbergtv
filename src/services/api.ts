@@ -5,14 +5,28 @@ import { Page } from 'src/models/page';
 import { Text } from 'src/models/text';
 import { toast } from 'react-toastify';
 import { TeamMember } from 'src/models/member';
+import { EMailBody } from 'src/models/email-body';
 
 export class API {
-  static buildURL(route: string) {
-    return `${Config.apiBase}/${route}`;
+  static buildURL(route: string, customBackend = false) {
+    const apiBaseString = !customBackend
+      ? Config.apiBase
+      : Config.customBackend;
+    return `${apiBaseString}/${route}`;
   }
 
-  static buildGetRequest(route: string) {
-    return this.buildRequest(fetch(this.buildURL(route)), route);
+  static buildGetRequest(route: string, customBackend = false) {
+    return this.buildRequest(fetch(this.buildURL(route, customBackend)), route);
+  }
+
+  static buildPostRequest(route: string, body: any, customBackend = false) {
+    return this.buildRequest(
+      fetch(this.buildURL(route, customBackend), {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+      route,
+    );
   }
 
   static buildRequest(request: Promise<Response>, route: string) {
@@ -26,7 +40,7 @@ export class API {
       .catch(error => {
         console.error('API Error:', error);
         this.showError(error, route);
-        return [];
+        return Promise.reject(error);
       });
   }
 
@@ -85,5 +99,9 @@ export class API {
 
   static findPages(query?: any): Promise<Page[]> {
     return this.buildFindRequest('pages', query);
+  }
+
+  static sendEmail(body: EMailBody): Promise<any> {
+    return this.buildPostRequest('email', body, true);
   }
 }
