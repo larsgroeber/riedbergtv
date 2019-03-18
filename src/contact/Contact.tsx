@@ -14,17 +14,6 @@ export class Contact extends React.Component {
   render() {
     return (
       <div style={{ maxWidth: '1000px', margin: 'auto' }}>
-        <p>
-          Hier kannst du uns kontaktieren, fülle dazu einfach das
-          Kontaktformular aus oder{' '}
-          <a
-            style={{ textDecoration: 'underline' }}
-            href={`mailto:${Config.supportEmail}`}
-          >
-            schreibe uns eine E-Mail
-          </a>
-          .
-        </p>
         <div
           style={{
             textAlign: 'left',

@@ -45,6 +45,7 @@ const sections = [
   },
   {
     title: 'Kontakt',
+    textName: 'contact-info',
     content: <Contact />,
     headerId: 'contact',
   },

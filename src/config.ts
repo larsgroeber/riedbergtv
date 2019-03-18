@@ -17,6 +17,7 @@ export const Config = {
   },
   apiBase: 'https://api.riedberg.tv',
   baseUrl: 'https://riedbergtv.netlify.com',
+  mapUrl: 'https://riedbergtv-map.netlify.com',
   supportEmail: 'support@riedberg.tv',
   videoRatio: 1.778,
 };

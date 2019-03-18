@@ -31,8 +31,8 @@ export class Section extends React.Component<Props> {
         </h2>
         <div>
           <div className={`section-content ${this.props.contentClass}`}>
-            {this.props.children}
             <ReactMarkdown source={this.props.text} />
+            {this.props.children}
           </div>
         </div>
       </div>
