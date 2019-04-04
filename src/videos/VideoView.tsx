@@ -92,7 +92,11 @@ export class VideoView extends React.Component<Props, State> {
             margin: 'auto',
           }}
         >
-          <Player src={`${Config.apiBase}${video.video.url}`} controls />
+          <video
+            src={`${Config.customBackend}${video.video.url}`}
+            controls
+            style={{ width: '100%' }}
+          />
         </div>
       ) : (
         <strong style={{ color: 'white' }}>
