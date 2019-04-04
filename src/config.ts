@@ -15,12 +15,11 @@ export const Config = {
     primary: primary,
     secondary: secondary,
   },
-  apiBase: process.env.REACT_ENV_API_BASE || 'http://localhost:1337',
-  baseUrl: process.env.REACT_ENV_BASE_URL || 'http://localhost:3000',
+  apiBase: process.env.REACT_ENV_API_BASE || 'https://api.riedberg.tv',
+  baseUrl: process.env.REACT_ENV_BASE_URL || 'https://riedbergtv.netlify.com',
   mapUrl: process.env.REACT_ENV_MAP_URL || 'https://riedbergtv-map.netlify.com',
   supportEmail: process.env.REACT_ENV_SUPPORT_MAIL || 'support@riedberg.tv',
   customBackend:
-    process.env.REACT_ENV_CUSTOM_BACKEND || 'http://localhost:5001',
+    process.env.REACT_ENV_CUSTOM_BACKEND || 'https://custom-api.riedberg.tv',
   videoRatio: 1.778,
-  production: process.env.REACT_ENV_CUSTOM_BACKEND,
 };
