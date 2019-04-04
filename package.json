@@ -27,7 +27,7 @@
     "build-css": "node-sass-chokidar src/ -o src/ --output-style compressed",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start": "npx concurrently -n react,scss -c blue,green \"react-scripts-ts start\" \"npm:watch-css\"",
-    "build": "npm run build-css && react-scripts-ts build && cp now.json public/",
+    "build": "./build.sh",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "start-server": "tsc -p tsconfig.server.json && node build-server/index.js"
