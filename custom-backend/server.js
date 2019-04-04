@@ -1,7 +1,10 @@
 const express = require('express');
-const app = express();
+const serveStatic = require('serve-static');
+const finalhandler = require('finalhandler');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+const app = express();
 require('dotenv').config();
 
 const sgMail = require('@sendgrid/mail');
@@ -11,6 +14,7 @@ const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(serveStatic(process.env.UPLOADS_DIR));
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -49,4 +53,4 @@ app.post('/email', (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Listening on ${port}!`));
