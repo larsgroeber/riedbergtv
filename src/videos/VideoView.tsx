@@ -109,11 +109,38 @@ export class VideoView extends React.Component<Props, State> {
 
     const categoriesView = categories ? (
       <div>
-        <CategoryList categories={categories} />
+        <CategoryList
+          categories={categories.map(category => {
+            const index = category.videos.findIndex(
+              v => v._id === this.state.video!._id,
+            );
+            if (index > -1) {
+              category.videos.splice(index, 1);
+            }
+            return category;
+          })}
+        />
       </div>
     ) : (
       ''
     );
+
+    const categoriesOfThisVideoView = categories
+      ? categories.map(c => (
+          <span
+            className="category-name"
+            style={{
+              color: Config.theme.primary,
+              textTransform: 'uppercase',
+              border: `2px solid ${Config.theme.primary}`,
+              borderRadius: '5px',
+              padding: '5px',
+            }}
+          >
+            {c.name}
+          </span>
+        ))
+      : '';
     return (
       <Loader loading={this.state.loadingVideo}>
         <Navbar notFloating={true} />
@@ -138,6 +165,7 @@ export class VideoView extends React.Component<Props, State> {
               veröffentlicht.
             </small>
           </div>
+          <div className="mt-4">{categoriesOfThisVideoView}</div>
         </Section>
         <Section dark={true}>{categoriesView}</Section>
         <Section>
