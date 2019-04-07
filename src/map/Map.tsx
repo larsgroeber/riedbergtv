@@ -32,7 +32,7 @@ export class Map extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="interactive-map-container">
         <iframe
           title="Interaktive Karte"
           id="interactive-map"
