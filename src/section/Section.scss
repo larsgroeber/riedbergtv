@@ -1,6 +1,11 @@
 .section-wrapper {
   padding: 2.5rem 0.5rem;
 
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
   .section-content {
     padding: 0 1rem;
     max-width: 2000px;
