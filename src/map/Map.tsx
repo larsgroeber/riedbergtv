@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './Map.css';
 import { Config } from 'src/config';
-import { config } from 'dotenv';
 
 interface State {
   showWarning: boolean;

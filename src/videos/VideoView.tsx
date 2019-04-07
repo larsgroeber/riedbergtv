@@ -23,7 +23,8 @@ import {
 } from 'rxjs/operators';
 import { CategoryList } from './CategoryList';
 import { toast } from 'react-toastify';
-import { Player } from 'video-react';
+import { Player, BigPlayButton } from 'video-react';
+import './VideoView.css';
 
 interface Props extends RouterProps {}
 
@@ -92,11 +93,9 @@ export class VideoView extends React.Component<Props, State> {
             margin: 'auto',
           }}
         >
-          <video
-            src={`${Config.customBackend}${video.video.url}`}
-            controls
-            style={{ width: '100%' }}
-          />
+          <Player src={`${Config.customBackend}${video.video.url}`} controls>
+            <BigPlayButton position="center" />
+          </Player>
         </div>
       ) : (
         <strong style={{ color: 'white' }}>
