@@ -83,7 +83,7 @@ export class VideoView extends React.Component<Props, State> {
     moment.locale('de');
 
     const { categories } = this.state;
-    const video = this.state.video || ({} as any);
+    const video: Video = this.state.video || ({} as any);
     const videoView =
       video && video.video ? (
         <div
@@ -93,7 +93,11 @@ export class VideoView extends React.Component<Props, State> {
             margin: 'auto',
           }}
         >
-          <Player src={`${Config.customBackend}${video.video.url}`} controls>
+          <Player
+            src={`${Config.customBackend}${video.video.url}`}
+            poster={`${Config.apiBase}${video.thumbnail.url}`}
+            controls
+          >
             <BigPlayButton position="center" />
           </Player>
         </div>

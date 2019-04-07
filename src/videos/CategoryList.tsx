@@ -10,9 +10,11 @@ export class CategoryList extends React.Component<Props> {
   render() {
     return (
       <div>
-        {this.props.categories.map(c => (
-          <CategoryView key={c.name} category={c} />
-        ))}
+        {this.props.categories
+          .filter(c => c.videos.length > 0)
+          .map(c => (
+            <CategoryView key={c.name} category={c} />
+          ))}
       </div>
     );
   }
