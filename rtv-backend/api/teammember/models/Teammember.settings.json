@@ -3,7 +3,7 @@
   "collectionName": "",
   "info": {
     "name": "teammember",
-    "description": "Every team member of RTV (will be displayed in alphabetical order on the website)"
+    "description": ""
   },
   "options": {
     "timestamps": true
@@ -16,21 +16,27 @@
     },
     "startedAt": {
       "default": "",
-      "type": "date"
+      "type": "date",
+      "required": true
     },
-    "email": {
+    "leftAt": {
       "default": "",
-      "type": "email"
-    },
-    "active": {
-      "default": true,
-      "type": "boolean"
+      "type": "date"
     },
     "picture": {
       "model": "file",
       "via": "related",
       "plugin": "upload",
       "required": false
+    },
+    "email": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "workAreas": {
+      "default": "",
+      "type": "string"
     }
   }
 }
