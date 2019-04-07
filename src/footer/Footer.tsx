@@ -8,6 +8,18 @@ export class Footer extends React.Component {
   render() {
     return (
       <footer>
+        <div id="social-icons">
+          <a
+            href="https://www.facebook.com/riedbergtv/"
+            target="_blank"
+            ref="nooperner"
+          >
+            <i className="fab fa-facebook-square" />
+          </a>
+          <a href="https://www.instagram.com" target="_blank" ref="nooperner">
+            <i className="fab fa-instagram" />
+          </a>
+        </div>
         RiedbergTV {moment().year()}
         <p>
           <Link to="/pages/datenschutz">Datenschutz</Link> |{' '}
