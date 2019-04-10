@@ -17,3 +17,7 @@ cd custom-backend && npm start  # starts custom backend (express)
 ```
 npm build   # build frontend to /public
 ```
+
+## Why two backends?
+
+Strapi handles all admin tasks (e.g. adding new videos, texts, sites) while the 'custom-backend' handles streaming video files (strapi does not handle range requests well) and sending emails via sendgrid.
