@@ -28,7 +28,11 @@ export class Header extends React.Component {
               }}
               className="text-center"
             >
-              <img src={Config.logo.large} id="logo" />
+              <img
+                src={Config.logo.small}
+                id="logo"
+                alt="RiedbergTV - Behind the Scenes of Science"
+              />
               <a href="#videos">
                 <button className="btn btn-primary d-none d-sm-inline-block">
                   Zu den Videos

@@ -6,6 +6,7 @@ import { Text } from 'src/models/text';
 import { toast } from 'react-toastify';
 import { TeamMember } from 'src/models/member';
 import { EMailBody } from 'src/models/email-body';
+import * as Sentry from '@sentry/browser';
 
 export class API {
   static buildURL(route: string, customBackend = false) {
@@ -48,6 +49,12 @@ export class API {
   }
 
   static showError(error: any, route: string) {
+    Sentry.withScope(scope => {
+      Object.keys(error).forEach(key => {
+        scope.setExtra(key, error[key]);
+      });
+      Sentry.captureException(error);
+    });
     toast.error(
       `Ein Fehler ist aufgetreten als wir ${this.buildURL(
         route,
