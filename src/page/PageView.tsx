@@ -45,7 +45,6 @@ export class PageView extends React.Component<Props> {
   }
 
   render() {
-    console.log(this.state.page);
     const backgroundImage =
       this.state.page && this.state.page.header
         ? `url(${Config.apiBase}${this.state.page.header.url})`

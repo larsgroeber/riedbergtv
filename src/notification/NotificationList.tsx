@@ -30,6 +30,9 @@ export class NotificationList extends React.Component<Props, State> {
       .forEach(n => toast.info(n.content, { autoClose: false }));
   }
   render() {
+    if (this.state.alerts.length === 0) {
+      return <></>;
+    }
     return (
       <div
         style={{
