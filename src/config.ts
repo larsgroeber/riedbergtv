@@ -3,6 +3,14 @@ const secondary = '#111';
 
 export const Config = {
   appName: 'RiedbergTV',
+  logo: {
+    icon:
+      '/assets/RiedbergTV2_0 Finale Logos/Weisses Logo/RiedbergTV 2_0 Logo weiss klein.png',
+    small:
+      '/assets/RiedbergTV2_0 Finale Logos/Weisser Text/RiedbergTV Logo 2_0 Text weiss klein.png',
+    large:
+      '/assets/RiedbergTV2_0 Finale Logos/Weisser Text/RiedbergTV Logo 2_0 Text weiss gross.png',
+  },
   theme: {
     light: {
       backgroundColor: primary,
@@ -14,6 +22,9 @@ export const Config = {
     },
     primary: primary,
     secondary: secondary,
+    font: {
+      logo: 'Bitter, serif',
+    },
   },
   apiBase: process.env.REACT_ENV_API_BASE || 'https://api.riedberg.tv',
   baseUrl: process.env.REACT_ENV_BASE_URL || 'https://riedbergtv.netlify.com',

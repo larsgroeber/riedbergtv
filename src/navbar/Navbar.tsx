@@ -9,13 +9,37 @@ interface Props {
 }
 
 export class Navbar extends React.Component<Props> {
+  public state = { showLogo: false };
+  componentDidMount() {
+    if (!this.props.notFloating) {
+      const nav = document.getElementById('navbar');
+      window.addEventListener(
+        'scroll',
+        () => {
+          const offset = nav!.getBoundingClientRect() as DOMRect;
+          if (offset.y > 0 && this.state.showLogo) {
+            this.setState({ showLogo: false });
+          }
+          if (offset.y === 0 && !this.state.showLogo) {
+            this.setState({ showLogo: true });
+          }
+        },
+        undefined,
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', () => {});
+  }
+
   public render() {
     return (
       <nav
         className={
           'navbar navbar-dark navbar-expand-sm' +
           (this.props.notFloating ? '' : ' sticky-top') +
-          (this.props.homePage ? '' : ' center-links')
+          (this.props.homePage && !this.state.showLogo ? '' : ' center-links')
         }
         style={{
           width: '100%',
@@ -26,9 +50,22 @@ export class Navbar extends React.Component<Props> {
         id="navbar"
       >
         <Link
-          className={'navbar-brand' + (this.props.homePage ? ' d-none' : '')}
+          className={
+            'navbar-brand' +
+            (this.props.homePage && !this.state.showLogo ? ' d-none' : '')
+          }
           to="/"
+          style={{
+            fontFamily: Config.theme.font.logo,
+          }}
         >
+          <img
+            className="mr-1"
+            src={Config.logo.icon}
+            style={{
+              height: '30px',
+            }}
+          />
           {Config.appName}
         </Link>
         <button

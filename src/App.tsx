@@ -9,9 +9,8 @@ import { Footer } from './footer/Footer';
 import { TeamList } from './team/TeamList';
 import { FAQ } from './faq/FAQ';
 import { Contact } from './contact/Contact';
-import { Config } from './config';
 import { Map } from './map/Map';
-import { Link } from 'react-router-dom';
+import { Header } from './header/Header';
 
 const sections = [
   {
@@ -68,46 +67,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        {/*  */}
-        <div className="video-header">
-          <video
-            src="/assets/SeLF-Video-RiedbergTV.small.mp4"
-            autoPlay
-            muted
-            loop
-          />
-          <div className="header">
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <div
-                style={{
-                  alignSelf: 'center',
-                  margin: '0 10px',
-                }}
-                className="text-center"
-              >
-                <h1>{Config.appName}</h1>
-                <p>Behind the Scenes of Science</p>
-                <p>Naturwissenschaftliche Videos von Studenten für Studenten</p>
-                <a href="#videos">
-                  <button className="btn btn-primary d-none d-sm-inline-block">
-                    Zu den Videos
-                  </button>
-                </a>
-                <Link to="/pages/jobs">
-                  <button className="btn btn-outline-primary ml-2">
-                    Mach mit
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header />
 
         <Navbar homePage={true} />
 
