@@ -1,7 +1,4 @@
-export enum NotificationType {
-  toast,
-  alert,
-}
+export type NotificationType = 'toast' | 'alert';
 
 export interface Notification {
   name: string;

@@ -77,7 +77,7 @@ class App extends React.Component {
 
         <Navbar homePage={true} />
 
-        {this.state.notifications ? (
+        {this.state.notifications.length ? (
           <NotificationList notifications={this.state.notifications} />
         ) : (
           ''
