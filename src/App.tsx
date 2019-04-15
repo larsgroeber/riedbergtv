@@ -11,6 +11,8 @@ import { FAQ } from './faq/FAQ';
 import { Contact } from './contact/Contact';
 import { Map } from './map/Map';
 import { Header } from './header/Header';
+import { Notification } from 'src/models/notification';
+import { NotificationList } from './notification/NotificationList';
 
 const sections = [
   {
@@ -55,13 +57,17 @@ const sections = [
 
 interface State {
   texts: Text[];
+  notifications: Notification[];
 }
 
 class App extends React.Component {
-  state: State = { texts: [] };
+  state: State = { texts: [], notifications: [] };
 
   componentDidMount() {
     API.getTexts().then(texts => this.setState({ texts, loading: false }));
+    API.getNotifications().then(notifications =>
+      this.setState({ notifications }),
+    );
   }
 
   public render() {
@@ -70,6 +76,12 @@ class App extends React.Component {
         <Header />
 
         <Navbar homePage={true} />
+
+        {this.state.notifications ? (
+          <NotificationList notifications={this.state.notifications} />
+        ) : (
+          ''
+        )}
 
         {sections.map((s, i) => (
           <Section

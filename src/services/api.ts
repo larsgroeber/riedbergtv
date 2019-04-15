@@ -1,3 +1,4 @@
+import { Notification } from 'src/models/notification';
 import { Config } from 'src/config';
 import { Video } from 'src/models/video';
 import { Category } from 'src/models/category';
@@ -113,5 +114,9 @@ export class API {
 
   static sendEmail(body: EMailBody): Promise<any> {
     return this.buildPostRequest('email', body, true);
+  }
+
+  static getNotifications(): Promise<Notification[]> {
+    return this.buildGetRequest('notifications');
   }
 }

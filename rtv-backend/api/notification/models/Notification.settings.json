@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "notification",
   "info": {
     "name": "notification",
     "description": "A notification which will be displayed to a user."
@@ -10,11 +10,6 @@
   },
   "attributes": {
     "name": {
-      "default": "",
-      "type": "string",
-      "required": true
-    },
-    "content": {
       "default": "",
       "type": "string",
       "required": true
@@ -34,6 +29,11 @@
         "toast",
         " alert"
       ]
+    },
+    "content": {
+      "default": "",
+      "type": "text",
+      "required": true
     }
   }
 }
