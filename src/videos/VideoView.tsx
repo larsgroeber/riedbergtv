@@ -38,17 +38,25 @@ interface State {
 export class VideoView extends React.Component<Props, State> {
   state: State = { loadingVideo: true, loadingCategories: true };
 
-  componentWillReceiveProps() {
-    window.scrollTo({ top: 0 });
-    this.retrieveVideo();
+  componentDidUpdate() {
+    if (
+      !this.state.loadingVideo &&
+      !this.state.loadingCategories &&
+      this.state.video &&
+      this.state.video.title !== this.props.match.params.slug
+    ) {
+      window.scrollTo({ top: 0 });
+      this.setState({ loadingVideo: true, loadingCategories: true });
+      this.fetchData();
+    }
   }
 
   componentDidMount() {
     window.scrollTo({ top: 0 });
-    this.retrieveVideo();
+    this.fetchData();
   }
 
-  private retrieveVideo() {
+  private fetchData() {
     from(
       API.findVideos({
         title: this.props.match.params.slug,
