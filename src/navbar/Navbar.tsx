@@ -66,7 +66,7 @@ export class Navbar extends React.Component<Props> {
               height: '30px',
             }}
           />
-          {Config.appName}
+          <span id="app-name">{Config.appName}</span>
         </Link>
         <button
           className="navbar-toggler"

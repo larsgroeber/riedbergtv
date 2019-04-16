@@ -17,3 +17,11 @@ export function isHTML(str: string) {
   var doc = new DOMParser().parseFromString(str, 'text/html');
   return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
 }
+
+export function maybeParse(json: string | null | undefined): any {
+  if (json) {
+    try {
+      return JSON.parse(json);
+    } catch (error) {}
+  }
+}
