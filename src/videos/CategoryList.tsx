@@ -11,6 +11,10 @@ export class CategoryList extends React.Component<Props> {
     return (
       <div>
         {this.props.categories
+          .map(c => ({
+            ...c,
+            videos: c.videos.filter(v => v.public),
+          }))
           .filter(c => c.videos.length > 0)
           .map(c => (
             <CategoryView key={c.name} category={c} />

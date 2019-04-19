@@ -101,29 +101,28 @@ export class VideoView extends React.Component<Props, State> {
     moment.locale('de');
 
     const { categories } = this.state;
-    const video: Video = this.state.video || ({} as any);
-    const videoView =
-      video && video.video ? (
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '1300px',
-            margin: 'auto',
-          }}
-        >
-          <Player
-            src={`${Config.customBackend}${video.video.url}`}
-            poster={`${Config.apiBase}${video.thumbnail.url}`}
-            controls
-          >
-            <BigPlayButton position="center" />
-          </Player>
-        </div>
-      ) : (
-        <strong style={{ color: 'white' }}>
-          There is no video file on this video!
-        </strong>
-      );
+    const video: Video = this.state.video || ({ videoSmall: {} } as any);
+    const videoFile = video.video
+      ? `${Config.customBackend}${video.video.url}`
+      : `${Config.customBackend}${video.videoSmall.url}`;
+    const thumbnailFile = (video.thumbnail || {}).url;
+    const videoView = videoFile ? (
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1300px',
+          margin: 'auto',
+        }}
+      >
+        <Player src={videoFile} poster={thumbnailFile} controls>
+          <BigPlayButton position="center" />
+        </Player>
+      </div>
+    ) : (
+      <strong style={{ color: 'white' }}>
+        There is no video file on this video!
+      </strong>
+    );
 
     const categoriesView = categories ? (
       <div>
@@ -159,6 +158,15 @@ export class VideoView extends React.Component<Props, State> {
           </span>
         ))
       : '';
+
+    const privateAlert =
+      video && !video.public ? (
+        <div className="alert alert-danger">
+          Dieses Video ist nicht öffentlich und nur über den Link verfügbar.
+        </div>
+      ) : (
+        ''
+      );
     return (
       <Loader loading={this.state.loadingVideo}>
         <Navbar notFloating={true} />
@@ -183,6 +191,7 @@ export class VideoView extends React.Component<Props, State> {
               veröffentlicht.
             </small>
           </div>
+          {privateAlert}
           <div className="mt-4">{categoriesOfThisVideoView}</div>
         </Section>
         <Section dark={true}>{categoriesView}</Section>

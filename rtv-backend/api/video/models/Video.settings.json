@@ -50,6 +50,15 @@
     "watchCount": {
       "default": 0,
       "type": "integer"
+    },
+    "public": {
+      "default": true,
+      "type": "boolean"
+    },
+    "publicised": {
+      "default": "",
+      "type": "date",
+      "required": true
     }
   }
 }

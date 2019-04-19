@@ -11,4 +11,6 @@ export interface Video extends Identifiable {
   videoSmall: File;
   thumbnail: File;
   watchCount: number;
+  public: boolean;
+  publicised: string;
 }

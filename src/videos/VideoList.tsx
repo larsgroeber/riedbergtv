@@ -43,8 +43,8 @@ export class VideoList extends React.Component<{}, State> {
           ...c,
           videos: c.videos.sort(
             (v1, v2) =>
-              new Date(v2.createdAt).getTime() -
-              new Date(v1.createdAt).getTime(),
+              new Date(v2.publicised).getTime() -
+              new Date(v1.publicised).getTime(),
           ),
         })),
     );
