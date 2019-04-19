@@ -40,7 +40,7 @@
       z-index: -10;
     }
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 700px) and (min-width: 575px) {
     #app-name {
       display: none !important;
     }
