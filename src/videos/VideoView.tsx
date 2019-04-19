@@ -37,23 +37,50 @@ interface State {
 
 export class VideoView extends React.Component<Props, State> {
   state: State = { loadingVideo: true, loadingCategories: true };
+  player: any;
+  private subToPlayerSet = false;
+  private setWatched = false;
 
   componentDidUpdate() {
+    if (this.player && !this.subToPlayerSet) {
+      this.player.subscribeToStateChange(
+        this.handlePlayerStateChange.bind(this),
+      );
+      this.subToPlayerSet = true;
+    }
     if (
       !this.state.loadingVideo &&
       !this.state.loadingCategories &&
       this.state.video &&
       this.state.video.title !== this.props.match.params.slug
     ) {
-      window.scrollTo({ top: 0 });
-      this.setState({ loadingVideo: true, loadingCategories: true });
+      this.reset();
       this.fetchData();
     }
+  }
+
+  private reset() {
+    window.scrollTo({ top: 0 });
+    this.setState({ loadingVideo: true, loadingCategories: true });
+    this.subToPlayerSet = false;
+    this.setWatched = false;
+    this.player = null;
   }
 
   componentDidMount() {
     window.scrollTo({ top: 0 });
     this.fetchData();
+  }
+
+  private handlePlayerStateChange(e: any) {
+    if (this.setWatched || !this.state.video) {
+      return;
+    }
+
+    if (e.currentTime > e.duration / 4) {
+      API.videoWatched(this.state.video._id);
+      this.setWatched = true;
+    }
   }
 
   private fetchData() {
@@ -114,7 +141,12 @@ export class VideoView extends React.Component<Props, State> {
           margin: 'auto',
         }}
       >
-        <Player src={videoFile} poster={thumbnailFile} controls>
+        <Player
+          src={videoFile}
+          poster={thumbnailFile}
+          controls
+          ref={(el: any) => (this.player = el)}
+        >
           <BigPlayButton position="center" />
         </Player>
       </div>
@@ -145,6 +177,7 @@ export class VideoView extends React.Component<Props, State> {
     const categoriesOfThisVideoView = categories
       ? categories.map(c => (
           <span
+            key={c.name}
             className="category-name"
             style={{
               color: Config.theme.primary,

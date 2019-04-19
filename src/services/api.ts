@@ -34,6 +34,19 @@ export class API {
     );
   }
 
+  static buildPutRequest(route: string, body: any, customBackend = false) {
+    return this.buildRequest(
+      fetch(this.buildURL(route, customBackend), {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      route,
+    );
+  }
+
   static buildRequest(request: Promise<Response>, route: string) {
     return request
       .then(res => {
@@ -118,5 +131,9 @@ export class API {
 
   static getNotifications(): Promise<Notification[]> {
     return this.buildGetRequest('notifications');
+  }
+
+  static videoWatched(id: string): Promise<void> {
+    return this.buildPutRequest(`videos/${id}/watched`, {});
   }
 }

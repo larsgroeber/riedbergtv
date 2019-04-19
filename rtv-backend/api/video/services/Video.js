@@ -9,7 +9,7 @@
 // Public dependencies.
 const _ = require('lodash');
 
-module.exports = {
+const basicMethods = {
   /**
    * Promise to fetch all videos.
    *
@@ -98,14 +98,6 @@ module.exports = {
 
     // Update relational data and return the entry.
     return Video.updateRelations(Object.assign(params, { values: relations }));
-  },
-
-  watched: async params => {
-    const video = await this.fetch(params);
-
-    video.watchCount++;
-
-    await this.edit(params, video);
   },
 
   /**
@@ -201,5 +193,15 @@ module.exports = {
       .skip(filters.start)
       .limit(filters.limit)
       .populate(populate);
+  },
+};
+
+module.exports = {
+  ...basicMethods,
+  watched: async params => {
+    console.log(params);
+    const video = await basicMethods.fetch(params);
+    video.watchCount++;
+    return await Video.update(params, video);
   },
 };
