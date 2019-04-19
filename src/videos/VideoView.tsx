@@ -128,12 +128,15 @@ export class VideoView extends React.Component<Props, State> {
     moment.locale('de');
 
     const { categories } = this.state;
-    const video: Video = this.state.video || ({ videoSmall: {} } as any);
-    const videoFile = video.video
-      ? `${Config.customBackend}${video.video.url}`
-      : `${Config.customBackend}${video.videoSmall.url}`;
+    const video: Video = this.state.video || ({} as any);
+    let videoUrl = '';
+    if (video.video) {
+      videoUrl = `${Config.customBackend}${video.video.url}`;
+    } else if (video.videoSmall) {
+      videoUrl = `${Config.customBackend}${video.videoSmall.url}`;
+    }
     const thumbnailFile = (video.thumbnail || {}).url;
-    const videoView = videoFile ? (
+    const videoView = videoUrl ? (
       <div
         style={{
           width: '100%',
@@ -142,7 +145,7 @@ export class VideoView extends React.Component<Props, State> {
         }}
       >
         <Player
-          src={videoFile}
+          src={videoUrl}
           poster={thumbnailFile}
           controls
           ref={(el: any) => (this.player = el)}
