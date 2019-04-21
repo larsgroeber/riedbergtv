@@ -135,7 +135,9 @@ export class VideoView extends React.Component<Props, State> {
     } else if (video.videoSmall) {
       videoUrl = `${Config.customBackend}${video.videoSmall.url}`;
     }
-    const thumbnailFile = (video.thumbnail || {}).url;
+    const thumbnailFile = `${Config.customBackend}${
+      (video.thumbnail || {}).url
+    }`;
     const videoView = videoUrl ? (
       <div
         style={{
