@@ -52,7 +52,7 @@ export class VideoView extends React.Component<Props, State> {
       !this.state.loadingVideo &&
       !this.state.loadingCategories &&
       this.state.video &&
-      this.state.video.title !== this.props.match.params.slug
+      !this.state.video.title.includes(this.props.match.params.slug)
     ) {
       this.reset();
       this.fetchData();
@@ -86,7 +86,8 @@ export class VideoView extends React.Component<Props, State> {
   private fetchData() {
     from(
       API.findVideos({
-        title: this.props.match.params.slug,
+        title_contains: this.props.match.params.slug,
+        _limit: 10,
       }),
     )
       .pipe(
