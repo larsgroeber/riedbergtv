@@ -165,9 +165,9 @@ export class VideoView extends React.Component<Props, State> {
       <div>
         <CategoryList
           categories={categories.map(category => {
-            const index = category.videos.findIndex(
-              v => v._id === this.state.video!._id,
-            );
+            const index = this.state.video
+              ? category.videos.findIndex(v => v._id === this.state.video!._id)
+              : -1;
             if (index > -1) {
               category.videos.splice(index, 1);
             }
