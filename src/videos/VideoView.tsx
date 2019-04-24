@@ -226,7 +226,7 @@ export class VideoView extends React.Component<Props, State> {
         >
           <div className="text-left mb-2">
             <small>
-              Dieses Video wurde {moment(video.createdAt).fromNow()}{' '}
+              Dieses Video wurde {moment(video.publicised).fromNow()}{' '}
               veröffentlicht.
             </small>
           </div>
