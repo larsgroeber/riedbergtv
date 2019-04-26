@@ -5,6 +5,7 @@ import { VideoItem } from './VideoItem';
 
 import './CategoryView.css';
 import { Config } from 'src/config';
+import * as moment from 'moment';
 
 interface Props {
   category: Category;
@@ -102,7 +103,7 @@ export class CategoryView extends React.Component<Props> {
 
     const slider = this.container.current ? (
       <Slider {...this.sliderSettings}>
-        {this.props.category.videos.map(video => (
+        {this.filterVideos(this.props.category).videos.map(video => (
           <div
             key={video.title}
             style={{
@@ -142,7 +143,7 @@ export class CategoryView extends React.Component<Props> {
   updateSliderSettings(): void {
     const videoCount = this.props.category.videos.length;
 
-    let upperLimit = 4;
+    let upperLimit = 5;
 
     if (this.container.current) {
       const width = this.container.current.offsetWidth;
@@ -151,5 +152,12 @@ export class CategoryView extends React.Component<Props> {
 
     this.sliderSettings.slidesToShow = upperLimit;
     this.sliderSettings.slidesToScroll = upperLimit;
+  }
+
+  private filterVideos(c: Category): Category {
+    return {
+      ...c,
+      videos: c.videos.filter(v => v.public && moment(v.publicised) < moment()),
+    };
   }
 }

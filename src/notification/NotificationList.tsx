@@ -64,6 +64,7 @@ export class NotificationList extends React.Component<Props, State> {
       >
         {this.state.alerts.map((n, i) => (
           <div
+            key={i}
             style={{
               maxWidth: '1000px',
               margin: 'auto',

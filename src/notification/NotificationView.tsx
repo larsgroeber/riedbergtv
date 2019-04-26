@@ -8,9 +8,6 @@ interface Props {
 }
 
 export class NotificationView extends React.Component<Props> {
-  componentWillReceiveProps() {
-    console.log(this.props.notification);
-  }
   render() {
     return (
       <div className="alert alert-info m-0" role="alert">
