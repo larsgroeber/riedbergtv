@@ -27,7 +27,7 @@ export const Config = {
     },
   },
   apiBase: process.env.REACT_ENV_API_BASE || 'https://api.riedberg.tv',
-  baseUrl: process.env.REACT_ENV_BASE_URL || 'https://riedbergtv.netlify.com',
+  baseUrl: process.env.REACT_ENV_BASE_URL || 'https://riedberg.tv',
   mapUrl: process.env.REACT_ENV_MAP_URL || 'https://riedbergtv-map.netlify.com',
   supportEmail: process.env.REACT_ENV_SUPPORT_MAIL || 'support@riedberg.tv',
   customBackend:
