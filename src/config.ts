@@ -1,4 +1,4 @@
-const primary = '#c9e727';
+const primary = '#66cccc';
 const secondary = '#111';
 
 export const Config = {
