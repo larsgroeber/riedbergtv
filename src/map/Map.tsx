@@ -33,8 +33,8 @@ export class Map extends React.Component {
     return (
       <>
         <div className="alert alert-info">
-          🚧Die Interaktive Karte ist noch nicht vollständig funktionsfähig,
-          komme demnächst wieder! 🚧
+          🚧Die Interaktive Karte ist noch in Bearbeitung.
+          Hab noch ein wenig Geduld! 🚧
           <br />
         </div>
         <div id="interactive-map-container">
