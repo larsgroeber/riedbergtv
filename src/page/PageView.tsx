@@ -51,6 +51,7 @@ export class PageView extends React.Component<Props> {
         ? `url(${Config.apiBase}${this.state.page.header.url})`
         : "";
     const pageContent = this.state.page ? this.state.page.content : "";
+    const padding = backgroundImage ? "100px 10px" : "10px";
 
     const content = isHTML(pageContent) ? (
       <div dangerouslySetInnerHTML={{ __html: pageContent }} />
@@ -62,20 +63,17 @@ export class PageView extends React.Component<Props> {
         <Navbar notFloating={true} />
         <div
           style={{
-            height: "40vh",
+            padding,
             backgroundImage,
             backgroundColor: "#66cccc",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            position: "relative"
+            position: "relative",
+            textAlign: "center"
           }}
         >
           <h1
             style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
               color: "white"
             }}
           >
