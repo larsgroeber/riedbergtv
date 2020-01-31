@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { Faq } from 'src/models/faq';
-import { API } from 'src/services/api';
-import ReactMarkdown from 'react-markdown';
+import * as React from "react";
+import { Faq } from "src/models/faq";
+import { API } from "src/services/api";
+import ReactMarkdown from "react-markdown";
+import "./FAQ.css";
 
 interface State {
   faqs: Faq[];
@@ -16,9 +17,16 @@ export class FAQ extends React.Component {
 
   render() {
     return (
-      <div className="accordion" id="accordion">
+      <div
+        className="accordion"
+        id="accordion"
+        style={{
+          color: "black"
+        }}
+      >
         {this.state.faqs.map((faq, i) => {
           const id = `faq-${i}`;
+
           return (
             <div className="card" key={i}>
               <div className="card-header p-0">
