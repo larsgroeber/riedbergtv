@@ -1,17 +1,17 @@
 ///<reference path="../typings/video-react.d.ts" />
-import * as React from 'react';
-import { Video } from 'src/models/video';
-import { Loader } from '../loader/Loader';
-import { API } from 'src/services/api';
-import { RouterProps } from 'src/models/router-props';
-import { Section } from '../section/Section';
-import { Config } from 'src/config';
-import { Navbar } from 'src/navbar/Navbar';
-import * as moment from 'moment';
-import 'moment/locale/de';
-import { Footer } from 'src/footer/Footer';
-import { Category } from 'src/models/category';
-import { from, of } from 'rxjs';
+import * as React from "react";
+import { Video } from "src/models/video";
+import { Loader } from "../loader/Loader";
+import { API } from "src/services/api";
+import { RouterProps } from "src/models/router-props";
+import { Section } from "../section/Section";
+import { Config } from "src/config";
+import { Navbar } from "src/navbar/Navbar";
+import * as moment from "moment";
+import "moment/locale/de";
+import { Footer } from "src/footer/Footer";
+import { Category } from "src/models/category";
+import { from, of } from "rxjs";
 import {
   take,
   switchMap,
@@ -20,11 +20,11 @@ import {
   tap,
   finalize,
   catchError,
-} from 'rxjs/operators';
-import { CategoryList } from './CategoryList';
-import { toast } from 'react-toastify';
-import { Player, BigPlayButton } from 'video-react';
-import './VideoView.css';
+} from "rxjs/operators";
+import { CategoryList } from "./CategoryList";
+import { toast } from "react-toastify";
+import { Player, BigPlayButton } from "video-react";
+import "./VideoView.css";
 
 interface Props extends RouterProps {}
 
@@ -44,7 +44,7 @@ export class VideoView extends React.Component<Props, State> {
   componentDidUpdate() {
     if (this.player && !this.subToPlayerSet) {
       this.player.subscribeToStateChange(
-        this.handlePlayerStateChange.bind(this),
+        this.handlePlayerStateChange.bind(this)
       );
       this.subToPlayerSet = true;
     }
@@ -52,7 +52,7 @@ export class VideoView extends React.Component<Props, State> {
       !this.state.loadingVideo &&
       !this.state.loadingCategories &&
       this.state.video &&
-      !this.state.video.title.includes(this.props.match.params.slug)
+      !this.state.video._id.includes(this.props.match.params.slug)
     ) {
       this.reset();
       this.fetchData();
@@ -86,51 +86,51 @@ export class VideoView extends React.Component<Props, State> {
   private fetchData() {
     from(
       API.findVideos({
-        title_contains: this.props.match.params.slug,
+        _id: this.props.match.params.slug,
         _limit: 10,
-      }),
+      })
     )
       .pipe(
         take(1),
-        switchMap(videos => {
+        switchMap((videos) => {
           const video = videos[0];
           this.setState({ video, loadingVideo: false });
           if (video) {
             return from(
               API.findCategory({
-                name: video.categories.map(c => c.name)[0],
-              }),
+                name: video.categories.map((c) => c.name)[0],
+              })
             );
           }
           return of(null);
         }),
-        filter(v => !!v),
+        filter((v) => !!v),
         tap((categories: Category[]) =>
-          this.setState({ categories, loadingCategories: false }),
+          this.setState({ categories, loadingCategories: false })
         ),
 
         catchError(() => {
           toast.error(
-            'There was an error when loading the video or the categories.',
+            "There was an error when loading the video or the categories.",
             {
               autoClose: false,
-            },
+            }
           );
           return of();
         }),
         finalize(() =>
-          this.setState({ loadingCategories: false, loadingVideo: false }),
-        ),
+          this.setState({ loadingCategories: false, loadingVideo: false })
+        )
       )
       .subscribe();
   }
 
   render() {
-    moment.locale('de');
+    moment.locale("de");
 
     const { categories } = this.state;
     const video: Video = this.state.video || ({} as any);
-    let videoUrl = '';
+    let videoUrl = "";
     if (video.video) {
       videoUrl = `${Config.customBackend}${video.video.url}`;
     } else if (video.videoSmall) {
@@ -142,9 +142,9 @@ export class VideoView extends React.Component<Props, State> {
     const videoView = videoUrl ? (
       <div
         style={{
-          width: '100%',
-          maxWidth: '1300px',
-          margin: 'auto',
+          width: "100%",
+          maxWidth: "1300px",
+          margin: "auto",
         }}
       >
         <Player
@@ -157,7 +157,7 @@ export class VideoView extends React.Component<Props, State> {
         </Player>
       </div>
     ) : (
-      <strong style={{ color: 'white' }}>
+      <strong style={{ color: "white" }}>
         There is no video file on this video!
       </strong>
     );
@@ -165,9 +165,11 @@ export class VideoView extends React.Component<Props, State> {
     const categoriesView = categories ? (
       <div>
         <CategoryList
-          categories={categories.map(category => {
+          categories={categories.map((category) => {
             const index = this.state.video
-              ? category.videos.findIndex(v => v._id === this.state.video!._id)
+              ? category.videos.findIndex(
+                  (v) => v._id === this.state.video!._id
+                )
               : -1;
             if (index > -1) {
               category.videos.splice(index, 1);
@@ -177,26 +179,26 @@ export class VideoView extends React.Component<Props, State> {
         />
       </div>
     ) : (
-      ''
+      ""
     );
 
     const categoriesOfThisVideoView = categories
-      ? categories.map(c => (
+      ? categories.map((c) => (
           <span
             key={c.name}
             className="category-name"
             style={{
               color: Config.theme.primary,
-              textTransform: 'uppercase',
+              textTransform: "uppercase",
               border: `2px solid ${Config.theme.primary}`,
-              borderRadius: '5px',
-              padding: '5px',
+              borderRadius: "5px",
+              padding: "5px",
             }}
           >
             {c.name}
           </span>
         ))
-      : '';
+      : "";
 
     const privateAlert =
       video && !video.public ? (
@@ -204,7 +206,7 @@ export class VideoView extends React.Component<Props, State> {
           Dieses Video ist nicht öffentlich und nur über den Link verfügbar.
         </div>
       ) : (
-        ''
+        ""
       );
     return (
       <Loader loading={this.state.loadingVideo}>
@@ -212,7 +214,7 @@ export class VideoView extends React.Component<Props, State> {
         <div
           style={{
             backgroundColor: Config.theme.dark.backgroundColor,
-            textAlign: 'center',
+            textAlign: "center",
             borderBottom: `5px solid ${Config.theme.primary}`,
           }}
         >
@@ -226,7 +228,7 @@ export class VideoView extends React.Component<Props, State> {
         >
           <div className="text-left mb-2">
             <small>
-              Dieses Video wurde {moment(video.publicised).fromNow()}{' '}
+              Dieses Video wurde {moment(video.publicised).fromNow()}{" "}
               veröffentlicht.
             </small>
           </div>

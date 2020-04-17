@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Video } from 'src/models/video';
+import * as React from "react";
+import { Video } from "src/models/video";
 
-import './VideoItem.css';
-import { Config } from 'src/config';
-import { withRouter, RouteComponentProps } from 'react-router';
+import "./VideoItem.css";
+import { Config } from "src/config";
+import { withRouter, RouteComponentProps } from "react-router";
 
 interface Props extends RouteComponentProps {
   video: Video;
@@ -13,7 +13,7 @@ class VideoItemClass extends React.Component<Props> {
   item = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    window.addEventListener('resize', () => this.setElementHeight());
+    window.addEventListener("resize", () => this.setElementHeight());
     this.setElementHeight();
   }
   setElementHeight(): any {
@@ -30,7 +30,7 @@ class VideoItemClass extends React.Component<Props> {
     return (
       <div
         style={{
-          padding: '0 0.2rem',
+          padding: "0 0.2rem",
         }}
       >
         <div
@@ -40,10 +40,10 @@ class VideoItemClass extends React.Component<Props> {
             backgroundImage: this.props.video.thumbnail
               ? `url(${Config.apiBase}${this.props.video.thumbnail.url})`
               : `url(/assets/Missing-image.png)`,
-            backgroundPosition: 'center',
+            backgroundPosition: "center",
           }}
           onClick={() =>
-            this.props.history.push(`/videos/${this.props.video.title}`)
+            this.props.history.push(`/videos/${this.props.video.id}`)
           }
         >
           <div className="video-item-info">
