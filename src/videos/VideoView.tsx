@@ -52,7 +52,10 @@ export class VideoView extends React.Component<Props, State> {
       !this.state.loadingVideo &&
       !this.state.loadingCategories &&
       this.state.video &&
-      !this.state.video._id.includes(this.props.match.params.slug)
+      !(
+        this.state.video._id.includes(this.props.match.params.slug) ||
+        this.state.video.title.includes(this.props.match.params.slug)
+      )
     ) {
       this.reset();
       this.fetchData();
@@ -84,15 +87,19 @@ export class VideoView extends React.Component<Props, State> {
   }
 
   private fetchData() {
-    from(
-      API.findVideos({
-        _id: this.props.match.params.slug,
-        _limit: 10,
-      })
-    )
+    const legacyReq = () =>
+      from(
+        API.findVideos({
+          title_contains: this.props.match.params.slug,
+          _limit: 1,
+        })
+      ).pipe(take(1));
+
+    from(API.getVideoById(this.props.match.params.slug))
       .pipe(
         take(1),
-        switchMap((videos) => {
+        switchMap((video) => (video._id ? of([video]) : legacyReq())),
+        switchMap((videos: Video[]) => {
           const video = videos[0];
           this.setState({ video, loadingVideo: false });
           if (video) {
