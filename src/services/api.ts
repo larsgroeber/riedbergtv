@@ -1,13 +1,13 @@
-import { Notification } from 'src/models/notification';
-import { Config } from 'src/config';
-import { Video } from 'src/models/video';
-import { Category } from 'src/models/category';
-import { Page } from 'src/models/page';
-import { Text } from 'src/models/text';
-import { toast } from 'react-toastify';
-import { TeamMember } from 'src/models/member';
-import { EMailBody } from 'src/models/email-body';
-import * as Sentry from '@sentry/browser';
+import { Notification } from "src/models/notification";
+import { Config } from "src/config";
+import { Video } from "src/models/video";
+import { Category } from "src/models/category";
+import { Page } from "src/models/page";
+import { Text } from "src/models/text";
+import { toast } from "react-toastify";
+import { TeamMember } from "src/models/member";
+import { EMailBody } from "src/models/email-body";
+import * as Sentry from "@sentry/browser";
 
 export class API {
   static buildURL(route: string, customBackend = false) {
@@ -24,58 +24,58 @@ export class API {
   static buildPostRequest(route: string, body: any, customBackend = false) {
     return this.buildRequest(
       fetch(this.buildURL(route, customBackend), {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(body),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }),
-      route,
+      route
     );
   }
 
   static buildPutRequest(route: string, body: any, customBackend = false) {
     return this.buildRequest(
       fetch(this.buildURL(route, customBackend), {
-        method: 'PUT',
+        method: "PUT",
         body: JSON.stringify(body),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }),
-      route,
+      route
     );
   }
 
   static buildRequest(request: Promise<Response>, route: string) {
     return request
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          throw new Error('Response does not indicate success.');
+          throw new Error("Response does not indicate success.");
         }
         return res.json();
       })
-      .catch(error => {
-        console.error('API Error:', error);
+      .catch((error) => {
+        console.error("API Error:", error);
         this.showError(error, route);
         return Promise.reject(error);
       });
   }
 
   static showError(error: any, route: string) {
-    Sentry.withScope(scope => {
-      Object.keys(error).forEach(key => {
+    Sentry.withScope((scope) => {
+      Object.keys(error).forEach((key) => {
         scope.setExtra(key, error[key]);
       });
       Sentry.captureException(error);
     });
     toast.error(
       `Ein Fehler ist aufgetreten als wir ${this.buildURL(
-        route,
+        route
       )} aufrufen wollten.`,
       {
         autoClose: false,
-      },
+      }
     );
   }
 
@@ -83,9 +83,11 @@ export class API {
     const url = new URL(this.buildURL(route));
     query = {
       ...query,
-      _sort: 'createdAt:asc',
+      _sort: "createdAt:asc",
     };
-    Object.keys(query).forEach(key => url.searchParams.append(key, query[key]));
+    Object.keys(query).forEach((key) =>
+      url.searchParams.append(key, query[key])
+    );
     return this.buildRequest(fetch(url.toString()), route);
   }
 
@@ -94,46 +96,52 @@ export class API {
   }
 
   static findVideos(query?: any): Promise<Video[]> {
-    return this.buildFindRequest('videos', query);
+    return this.buildFindRequest("videos", query);
   }
 
   static findCategory(query?: any): Promise<Category[]> {
-    return this.buildFindRequest('categories', query);
+    return this.buildFindRequest("categories", query);
   }
 
   static getTexts(): Promise<Text[]> {
-    return this.buildGetRequest('texts');
+    return this.buildGetRequest("texts");
   }
 
   static getFaqs(): Promise<Text[]> {
-    return this.buildGetRequest('faqs');
+    return this.buildGetRequest("faqs");
   }
 
   static getTeamMembers(): Promise<TeamMember[]> {
-    return this.buildGetRequest('teammembers');
+    return this.buildGetRequest("teammembers");
   }
 
   static getCategories(): Promise<Category[]> {
-    return this.buildGetRequest('categories');
+    return this.buildGetRequest("categories");
   }
 
   static getPages(): Promise<Page[]> {
-    return this.buildGetRequest('pages');
+    return this.buildGetRequest("pages");
   }
 
   static findPages(query?: any): Promise<Page[]> {
-    return this.buildFindRequest('pages', query);
+    return this.buildFindRequest("pages", query);
   }
 
   static sendEmail(body: EMailBody): Promise<any> {
-    return this.buildPostRequest('email', body, true);
+    return this.buildPostRequest("email", body, true);
   }
 
   static getNotifications(): Promise<Notification[]> {
-    return this.buildGetRequest('notifications');
+    return this.buildGetRequest("notifications");
   }
 
   static videoWatched(id: string): Promise<void> {
     return this.buildPutRequest(`videos/${id}/watched`, {});
+  }
+
+  static getVideoById(id: string): Promise<Video> {
+    return fetch(this.buildURL(`videos/${id}`, false)).then((res) =>
+      res.json()
+    );
   }
 }
