@@ -38,7 +38,7 @@ export class TeamList extends React.Component {
           .sort((m1, m2) => m1.startedAt.getTime() - m2.startedAt.getTime()),
 
         ...m
-          .filter(m => m.leftAt || !m.active)
+          .filter(m => m.leftAt)
           .sort((m1, m2) => m1.leftAt!.getTime() - m2.leftAt!.getTime()),
       ];
       res(result);
